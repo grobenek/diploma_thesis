@@ -122,3 +122,7 @@ dmypy.json
 .pyre/
 .pytype/
 cython_debug/
+data/processed/padded_fasttext_vectors.npy
+data/processed/padded_glove_vectors.npy
+data/processed/padded_word_2_vec_vectors.npy
+data/processed/processed_tweets.csv
