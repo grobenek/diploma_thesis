@@ -1,0 +1,41 @@
+Overall Average Metrics Across Runs:
+loss: 0.6354615223407746
+accuracy: 0.6402499967813491
+recall: 0.6850166031718253
+precision: 0.6300323092937469
+auc: 0.7253983426094055
+f1: 0.6341201069951057
+
+Best Hyperparameters:
+Optimized hyperparameters: {'model__dropout_rate': 0.2, 'model__first_units': 250, 'model__learning_rate': 0.0001, 'model__second_units': 200}
+
+
+--- Starting experiment run 1/10 ---
+Run 1 metrics: {'loss': 0.6411561131477356, 'accuracy': 0.6275000095367431, 'recall': 0.5973834216594696, 'precision': 0.6390453338623047, 'auc': 0.7155741453170776, 'f1': 0.5969224870204926}
+
+--- Starting experiment run 2/10 ---
+Run 2 metrics: {'loss': 0.6646878123283386, 'accuracy': 0.6199999928474427, 'recall': 0.7511534035205841, 'precision': 0.6033488035202026, 'auc': 0.7252545475959777, 'f1': 0.6487890243530273}
+
+--- Starting experiment run 3/10 ---
+Run 3 metrics: {'loss': 0.6102447748184204, 'accuracy': 0.6649999976158142, 'recall': 0.6392337799072265, 'precision': 0.675953483581543, 'auc': 0.7413631558418274, 'f1': 0.6321978747844696}
+
+--- Starting experiment run 4/10 ---
+Run 4 metrics: {'loss': 0.6589410305023193, 'accuracy': 0.6337499976158142, 'recall': 0.6979514241218567, 'precision': 0.6439522862434387, 'auc': 0.727697241306305, 'f1': 0.6193499684333801}
+
+--- Starting experiment run 5/10 ---
+Run 5 metrics: {'loss': 0.6333429455757141, 'accuracy': 0.6449999809265137, 'recall': 0.6674628585577012, 'precision': 0.6166296601295471, 'auc': 0.7268800973892212, 'f1': 0.6052219659090042}
+
+--- Starting experiment run 6/10 ---
+Run 6 metrics: {'loss': 0.628542137145996, 'accuracy': 0.6399999976158142, 'recall': 0.7001386284828186, 'precision': 0.6196751713752746, 'auc': 0.7184962868690491, 'f1': 0.6495251536369324}
+
+--- Starting experiment run 7/10 ---
+Run 7 metrics: {'loss': 0.627631402015686, 'accuracy': 0.6337499976158142, 'recall': 0.6283937573432923, 'precision': 0.6234776139259338, 'auc': 0.7135477542877198, 'f1': 0.6183151602745056}
+
+--- Starting experiment run 8/10 ---
+Run 8 metrics: {'loss': 0.6263682842254639, 'accuracy': 0.6525000095367431, 'recall': 0.7398720622062683, 'precision': 0.6193966746330262, 'auc': 0.7203873515129089, 'f1': 0.6688963651657105}
+
+--- Starting experiment run 9/10 ---
+Run 9 metrics: {'loss': 0.6578094124794006, 'accuracy': 0.6162499964237214, 'recall': 0.8388651132583618, 'precision': 0.5810471892356872, 'auc': 0.7345273733139038, 'f1': 0.6775144577026367}
+
+--- Starting experiment run 10/10 ---
+Run 10 metrics: {'loss': 0.6058913111686707, 'accuracy': 0.668749988079071, 'recall': 0.589711582660675, 'precision': 0.6777968764305115, 'auc': 0.7302554726600647, 'f1': 0.6244686126708985}
