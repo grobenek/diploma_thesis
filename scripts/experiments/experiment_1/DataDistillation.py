@@ -130,7 +130,6 @@ class DataDistillation:
         if self.metric_to_evaluate_with == "accuracy":
             key_to_find = "accuracy"
 
-        # Search keys in a case-insensitive manner.
         for key, value in results.items():
             if key.lower() == key_to_find.lower():
                 return value
@@ -177,7 +176,7 @@ class DataDistillation:
 
     def start(self) -> None:
         """
-        Runs the data distillation process, iteratively refining the teacher model.
+        Runs the data distillation process, iteratively training the teacher model.
         """
         print("Starting Data Distillation")
         # Initial teacher training and evaluation.

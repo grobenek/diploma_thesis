@@ -24,21 +24,21 @@ class Experiment2OpinionPipeline(ExperimentPipeline):
         model.add(layers.Flatten())
         model.add(
             layers.Dense(
-                params.get("first_units", 250), activation="relu", name="layer_1"
+                params.get("first_units", 300), activation="relu", name="layer_1"
             )
         )
         model.add(layers.Dropout(params.get("dropout_rate", 0.3), name="dropout_3"))
         model.add(layers.BatchNormalization(name="batch_normalization_3"))
         model.add(
             layers.Dense(
-                params.get("second_units", 100), activation="relu", name="layer_2"
+                params.get("second_units", 150), activation="relu", name="layer_2"
             )
         )
         model.add(layers.Dropout(params.get("dropout_rate", 0.3), name="dropout_4"))
         model.add(layers.BatchNormalization(name="batch_normalization_4"))
         model.add(layers.Dense(1, activation="sigmoid", name="opinion"))
         model.compile(
-            optimizer=Adam(learning_rate=params.get("learning_rate", 0.01)),
+            optimizer=Adam(learning_rate=params.get("learning_rate", 0.0001)),
             loss=[BinaryFocalCrossentropy(alpha=0.48)],
             metrics=["accuracy", Recall(), Precision(), AUC(), F1Score(threshold=0.5)],
         )
@@ -87,10 +87,6 @@ class Experiment2OpinionPipeline(ExperimentPipeline):
     def optimize_hyperparameters(self, data, param_grid):
         X, y = data
 
-        X_train, X_val, y_train, y_val = train_test_split(
-            X, y, test_size=0.2, random_state=None, stratify=y
-        )
-
         def create_model(first_units, second_units, dropout_rate, learning_rate):
             params = {
                 "first_units": first_units,
@@ -110,7 +106,7 @@ class Experiment2OpinionPipeline(ExperimentPipeline):
             scoring="f1",
             verbose=1,
         )
-        grid_result = grid.fit(X_train, y_train)
+        grid_result = grid.fit(X, y)
         best_params = grid_result.best_params_
         print("Best validation accuracy from GridSearch:", grid_result.best_score_)
         return best_params

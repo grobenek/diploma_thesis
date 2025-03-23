@@ -10,3 +10,32 @@ Average F1 Score (Main Run 9): 0.6406868815422058
 Average F1 Score (Main Run 10): 0.6571347832679748
 
 Final overall average F1 Score: 0.6489067137241363
+
+
+Training model on labeled training data with shape: (640, 26, 300)
+Evaluating model on internal validation set with metric f1_score...
+Teacher performance on validation set: 0.6248403787612915
+
+Iteration 1
+Teacher predicting on batch with shape: (1000, 26, 300)
+Pseudo‑labeled samples in this iteration: 703
+Training student on combined data of shape: (1343, 26, 300)
+Evaluating model on internal validation set with metric f1_score...
+Student performance on validation set: 0.6280081272125244
+Student outperformed teacher. Updating teacher model.
+
+Iteration 2
+Teacher predicting on batch with shape: (1000, 26, 300)
+Pseudo‑labeled samples in this iteration: 814
+Training student on combined data of shape: (2157, 26, 300)
+Evaluating model on internal validation set with metric f1_score...
+Student performance on validation set: 0.6552172899246216
+Student outperformed teacher. Updating teacher model.
+
+Iteration 3
+Teacher predicting on batch with shape: (1000, 26, 300)
+Pseudo‑labeled samples in this iteration: 851
+Training student on combined data of shape: (3008, 26, 300)
+Evaluating model on internal validation set with metric f1_score...
+Student performance on validation set: 0.5906249284744263
+Student did not outperform teacher. Stopping data distillation.

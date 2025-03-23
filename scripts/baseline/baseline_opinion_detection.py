@@ -85,9 +85,6 @@ class BaselineOpinionDetectionPipeline(ExperimentPipeline):
 
     def optimize_hyperparameters(self, data, param_grid):
         X, y = data
-        X_train, X_val, y_train, y_val = train_test_split(
-            X, y, test_size=0.2, random_state=None, stratify=y
-        )
 
         def create_model(first_units, second_units, dropout_rate, learning_rate):
             params = {
@@ -108,7 +105,7 @@ class BaselineOpinionDetectionPipeline(ExperimentPipeline):
             scoring="f1",
             verbose=1,
         )
-        grid_result = grid.fit(X_train, y_train)
+        grid_result = grid.fit(X, y)
         best_params = grid_result.best_params_
         print("Best validation accuracy from GridSearch:", grid_result.best_score_)
         return best_params
@@ -162,7 +159,7 @@ if __name__ == "__main__":
     }
     pipeline = BaselineOpinionDetectionPipeline()
     overall_avg_metrics, best_params = pipeline.run(
-        n_runs=10, param_grid=param_grid, optimize_hyperparameters=False
+        n_runs=10, param_grid=param_grid, optimize_hyperparameters=True
     )
 
     with open("results/baseline/opinion_detection/results_metrics.txt", "w") as f:

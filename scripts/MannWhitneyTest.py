@@ -1,4 +1,5 @@
 import numpy as np
+from matplotlib import pyplot as plt
 from scipy.stats import mannwhitneyu
 
 
@@ -32,61 +33,61 @@ class MannWhitneyTest:
 # Sentiment analysis experiments results
 sentiment_baseline_f1 = np.array(
     [
-        0.6220856189727784,
-        0.6250235795974731,
-        0.6180454730987549,
-        0.5985336065292358,
-        0.6282204985618591,
-        0.6275418162345886,
-        0.6137187480926514,
-        0.6085644125938415,
-        0.6073259592056275,
-        0.6260121464729309,
+        0.6130105972290039,
+        0.591346800327301,
+        0.6055277824401856,
+        0.5852092266082763,
+        0.5948750138282776,
+        0.610674262046814,
+        0.5997408151626586,
+        0.6049739599227906,
+        0.5883206367492676,
+        0.6033919215202331,
     ]
 )
 
 sentiment_experiment_1_f1 = np.array(
     [
-        0.6310455799102783,
-        0.631223839521408,
-        0.6316366791725159,
-        0.6189098477363586,
-        0.6486050903797149,
-        0.6275447249412537,
-        0.632792055606842,
-        0.6124779462814331,
-        0.614151555299759,
-        0.6201420307159424,
+        0.6178292989730835,
+        0.6366260588169098,
+        0.6212784051895142,
+        0.6214938163757324,
+        0.6103497803211212,
+        0.6151657640933991,
+        0.6246732354164124,
+        0.6377034902572631,
+        0.6339301764965057,
+        0.6397077739238739,
     ]
 )
 
 sentiment_experiment_2_f1 = np.array(
     [
-        0.5952069520950317,
-        0.6212198853492736,
-        0.6062157154083252,
-        0.6149736166000366,
-        0.597359037399292,
-        0.5722776412963867,
-        0.6029300451278686,
-        0.6360800385475158,
-        0.5858291864395142,
-        0.6039724588394165,
+        0.5827255964279174,
+        0.6148008942604065,
+        0.5992015600204468,
+        0.5914262056350708,
+        0.600926685333252,
+        0.6092060804367065,
+        0.5887307405471802,
+        0.622610068321228,
+        0.6027336120605469,
+        0.6052048563957214,
     ]
 )
 
 sentiment_experiment_3_f1 = np.array(
     [
-        0.6148154497146606,
-        0.6456211566925049,
-        0.6169899463653564,
-        0.6067038893699646,
-        0.6239444851875305,
-        0.6247076749801636,
-        0.6230051398277283,
-        0.6289791584014892,
-        0.6450015664100647,
-        0.6282133102416992,
+        0.6131531357765198,
+        0.6067179203033447,
+        0.6297123670578003,
+        0.6332510113716125,
+        0.643090283870697,
+        0.6329933166503906,
+        0.6453182339668274,
+        0.6330259442329407,
+        0.6286608099937439,
+        0.6221584916114807,
     ]
 )
 
@@ -139,31 +140,31 @@ opinion_experiment_1_f1 = np.array(
 
 opinion_experiment_2_f1 = np.array(
     [
-        0.6298790097236633,
-        0.6620452523231506,
-        0.6302444100379944,
-        0.6107773780822754,
-        0.6215250015258789,
-        0.6343305706977844,
-        0.642332661151886,
-        0.6440966963768006,
-        0.6405023097991943,
-        0.6438658118247986,
+        0.4916576504707336,
+        0.5872839450836181,
+        0.6397462129592896,
+        0.5616132974624634,
+        0.654293954372406,
+        0.6623787999153137,
+        0.6312576293945312,
+        0.5589958786964416,
+        0.6178455233573914,
+        0.6413082003593444,
     ]
 )
 
 opinion_experiment_3_f1 = np.array(
     [
-        0.5969224870204926,
-        0.6487890243530273,
-        0.6321978747844696,
-        0.6193499684333801,
-        0.6052219659090042,
-        0.6495251536369324,
-        0.6183151602745056,
-        0.6688963651657105,
-        0.6775144577026367,
-        0.6244686126708985,
+        0.6546963691711426,
+        0.6535470128059387,
+        0.6108193635940552,
+        0.6607183456420899,
+        0.6632133245468139,
+        0.6294217467308044,
+        0.6362064719200134,
+        0.657424533367157,
+        0.6752328515052796,
+        0.647264564037323,
     ]
 )
 
@@ -181,3 +182,61 @@ for experiment in opinion_experiments:
     print(f"U statistic: {stat_one_sided}, p-value: {p_value_one_sided}")
     print(test.interpret_result(p_value_one_sided))
     print()
+
+# testing equal p-values
+
+def compute_statistics(data, label):
+    mean = np.mean(data)
+    median = np.median(data)
+    print(f"{label} mean: {mean:.6f}, median: {median:.6f}")
+    return mean, median
+
+
+print("\nSentiment Analysis:")
+mean_sentiment_baseline, median_sentiment_baseline = compute_statistics(
+    sentiment_baseline_f1, "Baseline"
+)
+mean_sentiment_exp1, median_sentiment_exp1 = compute_statistics(
+    sentiment_experiment_1_f1, "Experiment 1"
+)
+mean_sentiment_exp3, median_sentiment_exp3 = compute_statistics(
+    sentiment_experiment_3_f1, "Experiment 3"
+)
+
+print("\nOpinion Detection:")
+mean_opinion_baseline, median_opinion_baseline = compute_statistics(
+    opinion_baseline_f1, "Baseline"
+)
+mean_opinion_exp1, median_opinion_exp1 = compute_statistics(
+    opinion_experiment_1_f1, "Experiment 1"
+)
+mean_opinion_exp3, median_opinion_exp3 = compute_statistics(
+    opinion_experiment_3_f1, "Experiment 3"
+)
+
+# boxplots
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# sentiment analysis
+axes[0].boxplot(
+    [sentiment_baseline_f1, sentiment_experiment_1_f1, sentiment_experiment_3_f1],
+    labels=["Baseline", "RQ1", "RQ3"],
+)
+axes[0].set_title("Rozdelenie F1-skóre pre sentimentovú klasifikáciu")
+axes[0].set_ylabel("F1-skóre")
+axes[0].set_xlabel("Modely")
+axes[0].grid(True)
+
+# opinion detection
+axes[1].boxplot(
+    [opinion_baseline_f1, opinion_experiment_1_f1, opinion_experiment_3_f1],
+    labels=["Baseline", "Experiment 1", "Experiment 3"],
+)
+axes[1].set_title("Rozdelenie F1-skóre pre detekciu názorov")
+axes[1].set_ylabel("F1-skóre")
+axes[1].set_xlabel("Modely")
+axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()

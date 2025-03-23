@@ -20,17 +20,17 @@ def create_model():
         [
             layers.Input(shape=(26, 300), name="Input"),
             layers.Flatten(),
-            layers.Dense(250, activation="relu", name="layer_1"),
-            layers.Dropout(0.2, name="dropout_3"),
+            layers.Dense(200, activation="relu", name="layer_1"),
+            layers.Dropout(0.3, name="dropout_3"),
             layers.BatchNormalization(name="batch_normalization_3"),
-            layers.Dense(100, activation="relu", name="layer_2"),
-            layers.Dropout(0.2, name="dropout_4"),
+            layers.Dense(200, activation="relu", name="layer_2"),
+            layers.Dropout(0.3, name="dropout_4"),
             layers.BatchNormalization(name="batch_normalization_4"),
             layers.Dense(3, activation="softmax", name="sentiment"),
         ]
     )
     model.compile(
-        optimizer=Adam(learning_rate=0.001),
+        optimizer=Adam(learning_rate=0.01),
         loss="categorical_crossentropy",
         metrics=[
             "accuracy",

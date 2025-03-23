@@ -23,22 +23,22 @@ class BaselineSentimentClassificationPipeline(ExperimentPipeline):
         model.add(layers.Flatten())
         model.add(
             layers.Dense(
-                params.get("first_units", 250), activation="relu", name="layer_1"
+                params.get("first_units", 200), activation="relu", name="layer_1"
             )
         )
-        model.add(layers.Dropout(params.get("dropout_rate", 0.2), name="dropout_3"))
+        model.add(layers.Dropout(params.get("dropout_rate", 0.3), name="dropout_3"))
         model.add(layers.BatchNormalization(name="batch_normalization_3"))
         model.add(
             layers.Dense(
-                params.get("second_units", 100), activation="relu", name="layer_2"
+                params.get("second_units", 200), activation="relu", name="layer_2"
             )
         )
-        model.add(layers.Dropout(params.get("dropout_rate", 0.2), name="dropout_4"))
+        model.add(layers.Dropout(params.get("dropout_rate", 0.3), name="dropout_4"))
         model.add(layers.BatchNormalization(name="batch_normalization_4"))
         model.add(layers.Dense(3, activation="softmax", name="sentiment"))
 
         model.compile(
-            optimizer=Adam(learning_rate=params.get("learning_rate", 0.001)),
+            optimizer=Adam(learning_rate=params.get("learning_rate", 0.01)),
             loss="categorical_crossentropy",
             metrics=[
                 "accuracy",
@@ -94,10 +94,7 @@ class BaselineSentimentClassificationPipeline(ExperimentPipeline):
     def optimize_hyperparameters(self, data, param_grid):
         X, y = data
 
-        X_train, X_val, y_train, y_val = train_test_split(
-            X, y, test_size=0.2, random_state=None, stratify=y
-        )
-        y_train_enc = to_categorical(y_train, num_classes=3)
+        y_train_enc = to_categorical(y, num_classes=3)
 
         def create_model(first_units, second_units, dropout_rate, learning_rate):
             params = {
@@ -118,7 +115,7 @@ class BaselineSentimentClassificationPipeline(ExperimentPipeline):
             scoring="f1_weighted",
             verbose=1,
         )
-        grid_result = grid.fit(X_train, y_train_enc)
+        grid_result = grid.fit(X, y_train_enc)
         best_params = grid_result.best_params_
         print("Best validation accuracy from GridSearch:", grid_result.best_score_)
         return best_params
