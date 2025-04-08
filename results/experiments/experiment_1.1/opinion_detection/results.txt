@@ -1,0 +1,12 @@
+Average F1 Score (Main Run 1): 0.6061838358640671
+Average F1 Score (Main Run 2): 0.6584734678268432
+Average F1 Score (Main Run 3): 0.6270015120506287
+Average F1 Score (Main Run 4): 0.6499759912490845
+Average F1 Score (Main Run 5): 0.6093781083822251
+Average F1 Score (Main Run 6): 0.6484540224075317
+Average F1 Score (Main Run 7): 0.6000082612037658
+Average F1 Score (Main Run 8): 0.6156850814819336
+Average F1 Score (Main Run 9): 0.6177879571914673
+Average F1 Score (Main Run 10): 0.6397219657897949
+
+Final overall average F1 Score: 0.6272670203447341

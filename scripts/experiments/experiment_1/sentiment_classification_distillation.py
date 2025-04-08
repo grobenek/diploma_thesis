@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 from keras.api import layers, models
@@ -80,6 +82,8 @@ final_overall_average = np.mean(overall_averages)
 print(f"\nFinal overall average F1 Score across 10 main runs: {final_overall_average}")
 
 # save metrics
+
+os.makedirs("results/experiments/experiment_1/sentiment_analysis/", exist_ok=True)
 with open(
     "results/experiments/experiment_1/sentiment_analysis/results.txt", "w"
 ) as file:
