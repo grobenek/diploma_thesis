@@ -46,6 +46,7 @@ sentiment_baseline_f1 = np.array(
     ]
 )
 
+# filtrovany distillation
 sentiment_experiment_1_f1 = np.array(
     [
         0.6178292989730835,
@@ -61,6 +62,7 @@ sentiment_experiment_1_f1 = np.array(
     ]
 )
 
+# klasicky distillation
 sentiment_experiment_1_1_f1 = np.array(
     [
         0.6077413737773896,
@@ -108,10 +110,10 @@ sentiment_experiment_3_f1 = np.array(
 
 sentiment_experiments = np.array(
     [
-        sentiment_experiment_1_f1,
-        sentiment_experiment_1_1_f1,
-        sentiment_experiment_2_f1,
-        sentiment_experiment_3_f1,
+        sentiment_experiment_1_f1, # filtrovana distillation
+        sentiment_experiment_1_1_f1, # klasicka distillation
+        sentiment_experiment_2_f1, # focal loss
+        sentiment_experiment_3_f1, # embedding modely
     ]
 )
 
@@ -143,6 +145,7 @@ opinion_baseline_f1 = np.array(
     ]
 )
 
+# filtrovany distillation
 opinion_experiment_1_f1 = np.array(
     [
         0.6535006284713745,
@@ -158,6 +161,7 @@ opinion_experiment_1_f1 = np.array(
     ]
 )
 
+# klasicky distillation
 opinion_experiment_1_1_f1 = np.array(
     [
         0.6061838358640671,
@@ -205,15 +209,16 @@ opinion_experiment_3_f1 = np.array(
 
 opinion_experiments = np.array(
     [
-        opinion_experiment_1_f1,
-        opinion_experiment_1_1_f1,
-        opinion_experiment_2_f1,
-        opinion_experiment_3_f1,
+        opinion_experiment_1_f1, # filtrovana distillation
+        opinion_experiment_1_1_f1, # klasicka distillation
+        opinion_experiment_2_f1, # focal loss
+        opinion_experiment_3_f1, # embedding modely
     ]
 )
 
 test = MannWhitneyTest()
 
+print("----------------------------------------------------------------------------------------------")
 print("Opinion analysis experiments:")
 for experiment in opinion_experiments:
     stat_one_sided, p_value_one_sided = test.run_test(
@@ -229,6 +234,7 @@ test = MannWhitneyTest()
 stat_one_sided, p_value_one_sided = test.run_test(
     opinion_experiment_1_1_f1, opinion_experiment_1_f1, alternative="less"
 )
+print("----------------------------------------------------------------------------------------------")
 print("Opinion distillation comparing")
 print(f"U statistic: {stat_one_sided}, p-value: {p_value_one_sided}")
 print(test.interpret_result(p_value_one_sided))
@@ -238,6 +244,7 @@ test = MannWhitneyTest()
 stat_one_sided, p_value_one_sided = test.run_test(
     sentiment_experiment_1_1_f1, sentiment_experiment_1_f1, alternative="less"
 )
+print("----------------------------------------------------------------------------------------------")
 print("Sentiment distillation comparing")
 print(f"U statistic: {stat_one_sided}, p-value: {p_value_one_sided}")
 print(test.interpret_result(p_value_one_sided))
@@ -245,58 +252,58 @@ print()
 
 # testing equal p-values
 
-# def compute_statistics(data, label):
-#     mean = np.mean(data)
-#     median = np.median(data)
-#     print(f"{label} mean: {mean:.6f}, median: {median:.6f}")
-#     return mean, median
+def compute_statistics(data, label):
+    mean = np.mean(data)
+    median = np.median(data)
+    print(f"{label} mean: {mean:.6f}, median: {median:.6f}")
+    return mean, median
 
 
-# print("\nSentiment Analysis:")
-# mean_sentiment_baseline, median_sentiment_baseline = compute_statistics(
-#     sentiment_baseline_f1, "Baseline"
-# )
-# mean_sentiment_exp1, median_sentiment_exp1 = compute_statistics(
-#     sentiment_experiment_1_f1, "Experiment 1"
-# )
-# mean_sentiment_exp3, median_sentiment_exp3 = compute_statistics(
-#     sentiment_experiment_3_f1, "Experiment 3"
-# )
+print("\nSentiment Analysis:")
+mean_sentiment_baseline, median_sentiment_baseline = compute_statistics(
+    sentiment_baseline_f1, "Baseline"
+)
+mean_sentiment_exp1, median_sentiment_exp1 = compute_statistics(
+    sentiment_experiment_1_f1, "Experiment 1"
+)
+mean_sentiment_exp3, median_sentiment_exp3 = compute_statistics(
+    sentiment_experiment_3_f1, "Experiment 3"
+)
 
-# print("\nOpinion Detection:")
-# mean_opinion_baseline, median_opinion_baseline = compute_statistics(
-#     opinion_baseline_f1, "Baseline"
-# )
-# mean_opinion_exp1, median_opinion_exp1 = compute_statistics(
-#     opinion_experiment_1_f1, "Experiment 1"
-# )
-# mean_opinion_exp3, median_opinion_exp3 = compute_statistics(
-#     opinion_experiment_3_f1, "Experiment 3"
-# )
+print("\nOpinion Detection:")
+mean_opinion_baseline, median_opinion_baseline = compute_statistics(
+    opinion_baseline_f1, "Baseline"
+)
+mean_opinion_exp1, median_opinion_exp1 = compute_statistics(
+    opinion_experiment_1_f1, "Experiment 1"
+)
+mean_opinion_exp3, median_opinion_exp3 = compute_statistics(
+    opinion_experiment_3_f1, "Experiment 3"
+)
 
-# # boxplots
+# boxplots
 
-# fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-# # sentiment analysis
-# axes[0].boxplot(
-#     [sentiment_baseline_f1, sentiment_experiment_1_f1, sentiment_experiment_3_f1],
-#     labels=["Baseline", "RQ1", "RQ3"],
-# )
-# axes[0].set_title("Rozdelenie F1-skóre pre sentimentovú klasifikáciu")
-# axes[0].set_ylabel("F1-skóre")
-# axes[0].set_xlabel("Modely")
-# axes[0].grid(True)
+# sentiment analysis
+axes[0].boxplot(
+    [sentiment_baseline_f1, sentiment_experiment_1_f1, sentiment_experiment_3_f1],
+    labels=["Baseline", "RQ1", "RQ4"],
+)
+axes[0].set_title("Rozdelenie F1-skóre pre sentimentovú klasifikáciu")
+axes[0].set_ylabel("F1-skóre")
+axes[0].set_xlabel("Modely")
+axes[0].grid(True)
 
-# # opinion detection
-# axes[1].boxplot(
-#     [opinion_baseline_f1, opinion_experiment_1_f1, opinion_experiment_3_f1],
-#     labels=["Baseline", "Experiment 1", "Experiment 3"],
-# )
-# axes[1].set_title("Rozdelenie F1-skóre pre detekciu názorov")
-# axes[1].set_ylabel("F1-skóre")
-# axes[1].set_xlabel("Modely")
-# axes[1].grid(True)
+# opinion detection
+axes[1].boxplot(
+    [opinion_baseline_f1, opinion_experiment_1_f1, opinion_experiment_3_f1],
+    labels=["Baseline", "RQ1", "RQ4"],
+)
+axes[1].set_title("Rozdelenie F1-skóre pre detekciu názorov")
+axes[1].set_ylabel("F1-skóre")
+axes[1].set_xlabel("Modely")
+axes[1].grid(True)
 
-# plt.tight_layout()
-# plt.show()
+plt.tight_layout()
+plt.show()

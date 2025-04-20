@@ -60,8 +60,8 @@ class Experiment2OpinionPipeline(ExperimentPipeline):
     def train_model(
         self, model, X_train, y_train, X_val, y_val, epochs=10, batch_size=32
     ):
-        y_train = np.array(y_train).reshape(-1, 1)  # Now shape (batch, 1)
-        y_val = np.array(y_val).reshape(-1, 1)  # Now shape (batch, 1)
+        y_train = np.array(y_train).reshape(-1, 1)  # shape (batch, 1)
+        y_val = np.array(y_val).reshape(-1, 1)  # shape (batch, 1)
 
         train_ds = tf.data.Dataset.from_tensor_slices((X_train, y_train))
         train_ds = train_ds.batch(batch_size, drop_remainder=True)

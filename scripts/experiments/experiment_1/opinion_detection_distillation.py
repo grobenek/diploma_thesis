@@ -46,7 +46,7 @@ num_experiments_per_run = 10
 main_run_averages = []
 
 for main_run in range(num_main_runs):
-    print(f"\n=== MAIN RUN {main_run + 1}/{num_main_runs} ===\n")
+    print(f"\nMAIN RUN {main_run + 1}/{num_main_runs}\n")
 
     f1_scores = []
 
@@ -62,7 +62,6 @@ for main_run in range(num_main_runs):
             epochs=10,
             pseudo_batch_size=1000,
             validation_split=0.2,
-            should_stratify=False,
             is_multi_class=False,
             metric_to_evaluate_with="f1_score",
         )

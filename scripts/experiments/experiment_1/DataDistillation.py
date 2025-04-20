@@ -1,10 +1,11 @@
+from typing import Any, Tuple
+
 import numpy as np
 from keras.api.callbacks import EarlyStopping
 from keras.api.metrics import AUC, F1Score, Precision, Recall
 from keras.api.models import clone_model
 from keras.api.optimizers import Adam
 from sklearn.model_selection import train_test_split
-from typing import Tuple, Any
 
 
 class DataDistillation:
@@ -59,7 +60,7 @@ class DataDistillation:
             stratify=y_labeled if should_stratify else None,
         )
 
-        # For binary classification, expand dims if labels are 1D.
+        # for binary classification, expand dims if labels are 1D.
         if np.array(y_train).ndim == 1:
             y_train = np.expand_dims(y_train, axis=-1)
             y_val = np.expand_dims(y_val, axis=-1)
@@ -142,7 +143,7 @@ class DataDistillation:
     ) -> Tuple[np.ndarray, np.ndarray]:
         num_classes = self.teacher_model.output_shape[-1]
         if predictions.ndim > 1 and predictions.shape[-1] > 1:
-            # Multi‑class or one‑hot binary classification.
+            # multi‑class or one‑hot binary classification.
             max_confidences = np.max(predictions, axis=1)
             mask = max_confidences > self.confidence_threshold
             int_labels = np.argmax(predictions[mask], axis=1)
@@ -153,17 +154,17 @@ class DataDistillation:
             )
             data_batch = data_batch[mask]
         else:
-            # Binary classification with a single probability output.
+            # binary classification with a single probability output.
             preds_flat = predictions.flatten()
-            # Identify confident positive and negative predictions.
+            # identify confident positive and negative predictions.
             pos_mask = preds_flat >= self.confidence_threshold
             neg_mask = preds_flat <= (1 - self.confidence_threshold)
-            # Combine masks.
+            # combine masks.
             mask = pos_mask | neg_mask
             if not np.any(mask):
-                # No samples meet the confidence criteria.
+                # no samples meet the confidence criteria.
                 return data_batch[:0], np.empty((0, 1))
-            # Generate labels: if positive threshold passed, label as 1; else 0.
+            # generate labels: if positive threshold passed, label as 1; else 0.
             confident_preds = preds_flat[mask]
             labels = np.where(confident_preds >= self.confidence_threshold, 1, 0)
             data_batch = data_batch[mask]
@@ -179,7 +180,7 @@ class DataDistillation:
         Runs the data distillation process, iteratively training the teacher model.
         """
         print("Starting Data Distillation")
-        # Initial teacher training and evaluation.
+        # initial teacher training and evaluation.
         self._train_model(self.teacher_model)
         teacher_metric = self.evaluate_model(self.teacher_model, eval_iteration=1)
         print(f"Teacher performance on validation set: {teacher_metric}")
@@ -192,7 +193,7 @@ class DataDistillation:
             iteration += 1
             print(f"\nIteration {iteration}")
 
-            # Determine current batch size.
+            # determine current batch size.
             current_batch_size = min(
                 self.pseudo_batch_size, self.unlabeled_data.shape[0]
             )
@@ -210,7 +211,7 @@ class DataDistillation:
             )
             print(f"Pseudo‑labeled samples in this iteration: {pseudo_labels.shape[0]}")
 
-            # Accumulate pseudo‑labeled data.
+            # accumulate pseudo‑labeled data.
             if accumulated_x is None:
                 accumulated_x = batch_data
                 accumulated_y = pseudo_labels
@@ -218,10 +219,10 @@ class DataDistillation:
                 accumulated_x = np.concatenate([accumulated_x, batch_data], axis=0)
                 accumulated_y = np.concatenate([accumulated_y, pseudo_labels], axis=0)
 
-            # Clone teacher to create a new student model.
+            # clone teacher to create a new student model.
             student_model = self._clone_model(self.teacher_model)
 
-            # Combine original labeled data with accumulated pseudo‑labeled data.
+            # combine original labeled data with accumulated pseudo‑labeled data.
             x_train, y_train = self.labeled_data
             x_combined = np.concatenate([x_train, accumulated_x], axis=0)
             y_combined = np.concatenate([y_train, accumulated_y], axis=0)
@@ -244,7 +245,7 @@ class DataDistillation:
             )
             print(f"Student performance on validation set: {student_metric}")
 
-            # Update teacher if student performance improves.
+            # update teacher if student performance improves.
             if student_metric > teacher_metric:
                 print("Student outperformed teacher. Updating teacher model.")
                 self.teacher_model = student_model
